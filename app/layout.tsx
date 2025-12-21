@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Nunito_Sans } from 'next/font/google'
 import './globals.css'
+import AppHeader from '@/components/headers/app-header'
 
 const nunitoSans = Nunito_Sans({ variable: '--font-sans' })
 
@@ -29,7 +30,10 @@ export default function RootLayout({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				{children}
+				<div className="flex min-h-screen w-full flex-col items-center gap-8 bg-background p-10">
+					<AppHeader />
+					{children}
+				</div>
 			</body>
 		</html>
 	)

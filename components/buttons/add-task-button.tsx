@@ -1,18 +1,20 @@
 'use client'
-import { Activity, useState } from 'react'
-import AddTaskForm from '@/components/forms/add-task'
-import { Button } from '@/components/ui/button'
+import { useState } from 'react'
+import AddTaskForm from '../forms/add-task'
+import { Button } from '../ui/button'
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
 
 export default function AddTaskButton() {
-	const [showAddTask, setShowAddTask] = useState(false)
+	const [open, setOpen] = useState(false)
+
 	return (
-		<div className="flex w-full justify-center">
-			<Activity mode={`${!showAddTask ? 'visible' : 'hidden'}`}>
-				<Button onClick={() => setShowAddTask(true)}>Add Task</Button>
-			</Activity>
-			<Activity mode={`${showAddTask ? 'visible' : 'hidden'}`}>
-				<AddTaskForm onCancel={() => setShowAddTask(false)} />
-			</Activity>
-		</div>
+		<Popover onOpenChange={setOpen} open={open}>
+			<PopoverTrigger asChild>
+				<Button>Add Task</Button>
+			</PopoverTrigger>
+			<PopoverContent className='w-[90vw] max-w-md p-0 sm:w-96'>
+				<AddTaskForm onCancel={() => setOpen(false)} />
+			</PopoverContent>
+		</Popover>
 	)
 }

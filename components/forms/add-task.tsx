@@ -25,10 +25,10 @@ const typesOfTasks = ['Personal', 'Work', 'Play', 'Other'] as const
 export default function AddTaskForm({ onCancel }: { onCancel: () => void }) {
 	return (
 		<ViewTransition>
-			<div
-				className="w-1/2 items-center justify-center p-8"
+			{/* <div
+				className="w-full items-center justify-center p-8"
 				title="task-form"
-			>
+			> */}
 				<Card className="w-full shadow-lg">
 					<CardHeader>
 						<CardTitle>Add Task</CardTitle>
@@ -111,7 +111,7 @@ export default function AddTaskForm({ onCancel }: { onCancel: () => void }) {
 						</form>
 					</CardContent>
 				</Card>
-			</div>
+			{/* </div> */}
 		</ViewTransition>
 	)
 }

@@ -1,19 +1,30 @@
-import type { Task } from '@/types/types'
-import AddTaskButton from '../buttons/add-task-button'
-import TaskTypeSelect from '../selectors/task-type-select'
+'use client'
+import { use } from 'react'
 import { Card, CardContent, CardHeader } from '../ui/card'
 import TaskDisplay from './task-display'
-export default function TasksCard({ tasks }: { tasks: Task[] }) {
+export default function TasksCard({
+	tasksPromise,
+}: {
+	tasksPromise: Promise<
+		{
+			id: string
+			name: string
+			type: string
+			due_date: string
+			description: string
+			completed: boolean
+		}[]
+	>
+}) {
+	const tasks = use(tasksPromise)
+	
+	const completed = tasks.length > 0 ? tasks[0].completed : false
+
 	return (
-		<div className="w-4/6">
+		<div className="w-full md:w-4/6">
 			<Card>
-				<CardHeader>Tasks</CardHeader>
-				<div className="flex justify-between">
-					<TaskTypeSelect />
-					<div className="mr-8 ml-auto">
-						<AddTaskButton />
-					</div>
-				</div>
+				<CardHeader>{completed ? 'Completed ' : ' '} Tasks</CardHeader>
+
 				<CardContent>
 					{tasks.map((task, index) => (
 						<TaskDisplay key={task.name + index} task={task} />

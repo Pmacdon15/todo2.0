@@ -4,6 +4,7 @@ import { Activity, useState } from 'react'
 import type { Task } from '@/types/types'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
+import { toggleComplete } from '@/actions/tasks-actions'
 
 export default function TaskDisplay({ task }: { task: Task }) {
 	const [showTask, setShowTask] = useState(false)
@@ -26,9 +27,9 @@ export default function TaskDisplay({ task }: { task: Task }) {
 
 				<div>
 					<Input
-						checked={isCompleted}
-						onChange={() => setIsCompleted(!isCompleted)}
-						type="radio"
+						defaultChecked={isCompleted}
+						onChange={() => {toggleComplete(task.id, task.completed)}}
+						type="checkbox"
 					/>
 				</div>
 			</div>

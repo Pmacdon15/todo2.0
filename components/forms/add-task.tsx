@@ -1,5 +1,5 @@
 'use client'
-import { ViewTransition } from 'react'
+import { Suspense, ViewTransition } from 'react'
 import { DatePicker } from '@/components/date-picker'
 import { Button } from '@/components/ui/button'
 import {
@@ -83,7 +83,9 @@ export default function AddTaskForm({ onCancel }: { onCancel: () => void }) {
 									<FieldLabel htmlFor="task-form-due-date">
 										Due Date
 									</FieldLabel>
-									<DatePicker id="task-form-due-date" />
+									<Suspense>
+										<DatePicker id="task-form-due-date" />
+									</Suspense>
 								</Field>
 
 								<Field>

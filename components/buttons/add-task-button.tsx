@@ -12,7 +12,7 @@ export default function AddTaskButton() {
 			<PopoverTrigger asChild>
 				<Button>Add Task</Button>
 			</PopoverTrigger>
-			<PopoverContent className='w-[90vw] max-w-md p-0 sm:w-96'>
+			<PopoverContent className="w-[90vw] max-w-md p-0 sm:w-96">
 				<AddTaskForm onCancel={() => setOpen(false)} />
 			</PopoverContent>
 		</Popover>

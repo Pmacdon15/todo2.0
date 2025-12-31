@@ -17,11 +17,11 @@ export default function TasksCard({
 	>
 }) {
 	const tasks = use(tasksPromise)
-	
+
 	const completed = tasks.length > 0 ? tasks[0].completed : false
 
 	return (
-		<div className="w-full md:w-4/6">
+		<div className="w-full md:w-4/6 shadow-lg">
 			<Card>
 				<CardHeader>{completed ? 'Completed ' : ' '} Tasks</CardHeader>
 

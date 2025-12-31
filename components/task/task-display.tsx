@@ -1,17 +1,11 @@
 'use client'
 import { Activity, useState, ViewTransition } from 'react'
+import { toggleComplete } from '@/actions/tasks-actions'
 import type { Task } from '@/types/types'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
-import { toggleComplete } from '@/actions/tasks-actions'
 
-export default function TaskDisplay({
-	task,
-	onToggleComplete,
-}: {
-	task: Task
-	onToggleComplete: () => void
-}) {
+export default function TaskDisplay({ task }: { task: Task }) {
 	const [showTask, setShowTask] = useState(false)
 	const [isCompleted, setIsCompleted] = useState(task.completed)
 

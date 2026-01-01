@@ -1,6 +1,6 @@
 'use client'
 
-import type { Control, FieldValues } from 'react-hook-form'
+import type { Control, FieldValues, Path } from 'react-hook-form'
 import { Controller } from 'react-hook-form'
 import {
 	Combobox,
@@ -12,24 +12,24 @@ import {
 } from '@/components/ui/combobox'
 import { Field, FieldError, FieldLabel } from '@/components/ui/field'
 
-interface ControlledComboboxProps {
-	control: Control<FieldValues>
-	name: string
+interface ControlledComboboxProps<T extends FieldValues> {
+	control: Control<T>
+	name: Path<T>
 	label: string
 	items: readonly string[]
 	placeholder: string
 	emptyMessage?: string
 }
 
-export function ControlledCombobox({
+export function ControlledCombobox<T extends FieldValues>({
 	control,
 	name,
 	label,
 	items,
 	placeholder,
 	emptyMessage = 'No items found.',
-}: ControlledComboboxProps) {
-	const id = name
+}: ControlledComboboxProps<T>) {
+	const id = name as string
 	return (
 		<Controller
 			control={control}
@@ -59,7 +59,7 @@ export function ControlledCombobox({
 								)}
 							</ComboboxList>
 						</ComboboxContent>
-					</Combobox>{' '}
+					</Combobox>
 					{fieldState.invalid && (
 						<FieldError errors={[fieldState.error]} />
 					)}

@@ -10,3 +10,13 @@ export async function toggleComplete(id: string, completed: boolean) {
 	})
 	await updateTag('tasks')
 }
+
+export async function newTask(id: string, completed: boolean) {
+	await prisma.task.create({
+		data: {
+			id,
+			completed,
+		},
+	})
+	await updateTag('tasks')
+}

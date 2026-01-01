@@ -48,7 +48,6 @@ export function ControlledCombobox({
 							id={id}
 							onBlur={field.onBlur}
 							placeholder={placeholder}
-							ref={field.ref}
 						/>
 						<ComboboxContent>
 							<ComboboxEmpty>{emptyMessage}</ComboboxEmpty>

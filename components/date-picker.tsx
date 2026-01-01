@@ -30,29 +30,41 @@ function isValidDate(date: Date | undefined) {
 	return !Number.isNaN(date.getTime())
 }
 
-export function DatePicker({ id }: { id: string }) {
+interface DatePickerProps {
+	id: string
+	placeholder?: string
+	value: string | undefined
+	onChange: (value: string) => void
+}
+
+export function DatePicker({
+	id,
+	placeholder,
+	value,
+	onChange,
+}: DatePickerProps) {
 	const [open, setOpen] = React.useState(false)
-	const [date, setDate] = React.useState<Date | undefined>(
-		new Date('2025-06-01'),
-	)
+
+	const date = React.useMemo(() => (value ? new Date(value) : undefined), [value])
 	const [month, setMonth] = React.useState<Date | undefined>(date)
-	const [value, setValue] = React.useState(formatDate(date))
+
+	React.useEffect(() => {
+		if (date) {
+			setMonth(date)
+		}
+	}, [date])
 
 	return (
 		<div className="flex flex-col gap-3">
-			{/* <Label className="px-1" htmlFor="date">
-				Subscription Date
-			</Label> */}
 			<div className="relative flex gap-2">
 				<Input
 					className="bg-background pr-10"
 					id={id}
 					onChange={(e) => {
-						const date = new Date(e.target.value)
-						setValue(e.target.value)
-						if (isValidDate(date)) {
-							setDate(date)
-							setMonth(date)
+						const newDate = new Date(e.target.value)
+						onChange(e.target.value)
+						if (isValidDate(newDate)) {
+							setMonth(newDate)
 						}
 					}}
 					onKeyDown={(e) => {
@@ -61,14 +73,14 @@ export function DatePicker({ id }: { id: string }) {
 							setOpen(true)
 						}
 					}}
-					placeholder="June 01, 2025"
-					value={value}
+					placeholder={placeholder}
+					value={value ?? ''}
 				/>
 				<Popover onOpenChange={setOpen} open={open}>
 					<PopoverTrigger asChild>
 						<Button
 							className="absolute top-1/2 right-2 size-6 -translate-y-1/2"
-							id="date-picker"
+							id="date-picker-trigger" 
 							variant="ghost"
 						>
 							<IconCalendar className="size-3.5" />
@@ -86,9 +98,11 @@ export function DatePicker({ id }: { id: string }) {
 							mode="single"
 							month={month}
 							onMonthChange={setMonth}
-							onSelect={(date) => {
-								setDate(date)
-								setValue(formatDate(date))
+							onSelect={(newDate) => {
+								onChange(formatDate(newDate))
+								if (newDate) {
+									setMonth(newDate)
+								}
 								setOpen(false)
 							}}
 							selected={date}

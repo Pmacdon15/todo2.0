@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Nunito_Sans } from 'next/font/google'
 import './globals.css'
-import AddTaskButton from '@/components/buttons/add-task-button'
 import AppHeader from '@/components/headers/app-header'
-import TaskTypeSelect from '@/components/selectors/task-type-select'
+import Providers from '@/components/providers'
+import SearchBar from '@/components/search-bar'
 
 const nunitoSans = Nunito_Sans({ variable: '--font-sans' })
 
@@ -34,13 +34,8 @@ export default function RootLayout({
 			>
 				<div className="flex min-h-screen w-full flex-col items-center gap-8 bg-background p-4 md:p-10">
 					<AppHeader />
-					<div className="flex w-4/6 items-center justify-center gap-4 rounded-xl border-2 p-8 font-medium text-4xl shadow-2xl">
-						<TaskTypeSelect />
-						<div className="mr-8 ml-auto">
-							<AddTaskButton />
-						</div>
-					</div>
-					{children}
+					<SearchBar />
+					<Providers>{children}</Providers>
 				</div>
 			</body>
 		</html>

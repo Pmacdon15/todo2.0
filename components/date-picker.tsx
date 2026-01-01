@@ -45,7 +45,10 @@ export function DatePicker({
 }: DatePickerProps) {
 	const [open, setOpen] = React.useState(false)
 
-	const date = React.useMemo(() => (value ? new Date(value) : undefined), [value])
+	const date = React.useMemo(
+		() => (value ? new Date(value) : undefined),
+		[value],
+	)
 	const [month, setMonth] = React.useState<Date | undefined>(date)
 
 	React.useEffect(() => {
@@ -80,7 +83,7 @@ export function DatePicker({
 					<PopoverTrigger asChild>
 						<Button
 							className="absolute top-1/2 right-2 size-6 -translate-y-1/2"
-							id="date-picker-trigger" 
+							id="date-picker-trigger"
 							variant="ghost"
 						>
 							<IconCalendar className="size-3.5" />

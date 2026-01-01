@@ -1,5 +1,7 @@
 'use client'
 
+import type { Control, FieldValues } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import {
 	Combobox,
 	ComboboxContent,
@@ -9,11 +11,9 @@ import {
 	ComboboxList,
 } from '@/components/ui/combobox'
 import { Field, FieldError, FieldLabel } from '@/components/ui/field'
-import type { Control } from 'react-hook-form'
-import { Controller } from 'react-hook-form'
 
 interface ControlledComboboxProps {
-	control: Control<any>
+	control: Control<FieldValues>
 	name: string
 	label: string
 	items: readonly string[]
@@ -37,30 +37,31 @@ export function ControlledCombobox({
 			render={({ field, fieldState }) => (
 				<Field data-invalid={fieldState.invalid}>
 					<FieldLabel htmlFor={id}>{label}</FieldLabel>
-									<Combobox
-										items={items}
-										value={field.value}
-										onValueChange={(newValue) => {
-											field.onChange(newValue);
-										}}
-									>
-										<ComboboxInput
-											id={id}
-											placeholder={placeholder}
-											ref={field.ref}
-											onBlur={field.onBlur}
-										/>
-										<ComboboxContent>
-											<ComboboxEmpty>{emptyMessage}</ComboboxEmpty>
-											<ComboboxList>
-												{(item) => (
-													<ComboboxItem key={item} value={item}>
-														{item}
-													</ComboboxItem>
-												)}
-											</ComboboxList>
-										</ComboboxContent>
-									</Combobox>					{fieldState.invalid && (
+					<Combobox
+						items={items}
+						onValueChange={(newValue) => {
+							field.onChange(newValue)
+						}}
+						value={field.value}
+					>
+						<ComboboxInput
+							id={id}
+							onBlur={field.onBlur}
+							placeholder={placeholder}
+							ref={field.ref}
+						/>
+						<ComboboxContent>
+							<ComboboxEmpty>{emptyMessage}</ComboboxEmpty>
+							<ComboboxList>
+								{(item) => (
+									<ComboboxItem key={item} value={item}>
+										{item}
+									</ComboboxItem>
+								)}
+							</ComboboxList>
+						</ComboboxContent>
+					</Combobox>{' '}
+					{fieldState.invalid && (
 						<FieldError errors={[fieldState.error]} />
 					)}
 				</Field>

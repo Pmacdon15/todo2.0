@@ -14,33 +14,32 @@ const taskData: Prisma.TaskCreateInput[] = [
 	{
 		name: 'Go to store',
 		type: 'Personal',
-		due_date: '2025-12-12',
+		due_date: new Date('2025-12-12'),
 		description: 'Get Milk',
 		completed: true,
 	},
 	{
 		name: 'Buy groceries',
 		type: 'Personal',
-		due_date: '2025-12-23',
+		due_date: new Date('2025-12-23'),
 		description: 'Milk, eggs, bread',
 		completed: false,
 	},
 	{
 		name: 'Team meeting',
 		type: 'Work',
-		due_date: '2025-12-22',
+		due_date: new Date('2025-12-22'),
 		description: 'Quarterly review discussion',
 		completed: false,
 	},
 	{
 		name: 'Gym workout',
 		type: 'Health',
-		due_date: '2025-12-21',
+		due_date: new Date('2025-12-21'),
 		description: 'Cardio and weights',
 		completed: false,
 	},
 ]
-
 export async function main() {
 	try {
 		const tables =

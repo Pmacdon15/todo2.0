@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ViewTransition } from 'react'
 import { useForm } from 'react-hook-form'
-import * as z from 'zod'
+import type * as z from 'zod'
 import {
 	Card,
 	CardContent,
@@ -15,25 +15,20 @@ import { ControlledCombobox } from '@/components/ui/controlled-combobox'
 import { ControlledTextInput } from '@/components/ui/controlled-input'
 import { ControlledTextArea } from '@/components/ui/controlled-textarea'
 import { FieldGroup } from '@/components/ui/field'
+import { useAddTaskMutation } from '@/mutations/tasks-mutations'
+import { formSchema } from '@/zod/tasks-schema'
 import { FormActions } from './form-fields/form-actions'
 import { TaskDueDatePicker } from './form-fields/task-due-date-picker'
 
 const typesOfTasks = ['Personal', 'Work', 'Play', 'Other'] as const
 
-const formSchema = z.object({
-	name: z
-		.string()
-		.min(5, 'Task name must be at least 5 characters.')
-		.max(32, 'Task name must be at most 32 characters.'),
-	typeOfTask: z.string().min(1, 'Type of task is required.'),
-	dueDate: z.string(),
-	details: z
-		.string()
-		.min(5, 'Details must be at least 5 characters.')
-		.max(100, 'Details must be at most 100 characters.'),
-})
-
 export default function AddTaskForm({ onCancel }: { onCancel: () => void }) {
+	const { mutate, error } = useAddTaskMutation({
+		onSuccess: () => {
+			form.reset()
+			onCancel()
+		},
+	})
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -45,7 +40,8 @@ export default function AddTaskForm({ onCancel }: { onCancel: () => void }) {
 	})
 
 	function onSubmit(data: z.infer<typeof formSchema>) {
-		console.log(data)
+		console.log('Form submitted', data)
+		mutate(data)
 	}
 
 	return (
@@ -91,7 +87,11 @@ export default function AddTaskForm({ onCancel }: { onCancel: () => void }) {
 								name="details"
 								placeholder="Add additional comments"
 							/>
-
+							{error && (
+								<div className="text-red-500">
+									{error.message}
+								</div>
+							)}
 							<FormActions onCancel={onCancel} />
 						</FieldGroup>
 					</form>

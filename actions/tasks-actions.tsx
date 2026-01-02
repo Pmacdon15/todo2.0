@@ -1,7 +1,10 @@
 'use server'
 
 import { updateTag } from 'next/cache'
+import type z from 'zod'
+import type { Task } from '@/lib/generated/prisma/client'
 import prisma from '@/lib/prisma'
+import type { formSchema } from '@/zod/tasks-schema'
 
 export async function toggleComplete(id: string, completed: boolean) {
 	await prisma.task.update({
@@ -11,12 +14,24 @@ export async function toggleComplete(id: string, completed: boolean) {
 	await updateTag('tasks')
 }
 
-export async function newTask(id: string, completed: boolean) {
-	await prisma.task.create({
-		data: {
-			id,
-			completed,
-		},
-	})
-	await updateTag('tasks')
+export async function newTaskAction(data: z.infer<typeof formSchema>) {
+	let result: Task
+	try {		
+		result = await prisma.task.create({
+			data: {
+				name: data.name,
+				type: data.typeOfTask,
+				due_date: new Date(data.dueDate).toISOString(),
+				description: data.details,
+				completed: false,
+			},
+		})
+		console.log('result: ', result)
+		if (!result) throw new Error('Error adding task.')
+	} catch (e: unknown) {
+		console.error('Error adding task: ', e)
+		return { error: 'Error updating DB.' }
+	}
+	// await updateTag('tasks')
+	return result
 }

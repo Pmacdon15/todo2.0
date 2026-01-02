@@ -2,20 +2,19 @@ import { Suspense } from 'react'
 import TasksCardFallback from '@/components/fallbacks/tasks-card-fallback'
 import TasksCard from '@/components/task/tasks-card'
 import { fetchTasks } from '@/DAL/dal'
-import type { Task } from '@/types/types'
 
-export default function Page() {
-	const tasksPromise = fetchTasks()
-	const completedTasksPromise = tasksPromise.then((tasks) =>
-		tasks.filter((task: Task) => task.completed),
+export default function Page(props: PageProps<'/'>) {
+	const tasksPromise = props.searchParams.then((params) =>
+		fetchTasks(params.page, false),
 	)
-	const currentTasksPromise = tasksPromise.then((tasks) =>
-		tasks.filter((task: Task) => !task.completed),
+	const completedTasksPromise = props.searchParams.then((params) =>
+		fetchTasks(params.page, true),
 	)
+
 	return (
 		<>
 			<Suspense fallback={<TasksCardFallback />}>
-				<TasksCard tasksPromise={currentTasksPromise} />
+				<TasksCard tasksPromise={tasksPromise} />
 			</Suspense>
 			<Suspense fallback={<TasksCardFallback />}>
 				<TasksCard tasksPromise={completedTasksPromise} />

@@ -1,20 +1,12 @@
 'use client'
 import { use } from 'react'
+import type { Task } from '@/lib/generated/prisma/client'
 import { Card, CardContent, CardHeader } from '../ui/card'
 import TaskDisplay from './task-display'
 export default function TasksCard({
 	tasksPromise,
 }: {
-	tasksPromise: Promise<
-		{
-			id: string
-			name: string
-			type: string
-			due_date: string
-			description: string
-			completed: boolean
-		}[]
-	>
+	tasksPromise: Promise<Task[]>
 }) {
 	const tasks = use(tasksPromise)
 

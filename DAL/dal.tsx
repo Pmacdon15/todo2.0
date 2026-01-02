@@ -1,8 +1,27 @@
 import { cacheTag } from 'next/cache'
 import prisma from '@/lib/prisma'
 
-export async function fetchTasks() {
+export async function fetchTasks(
+	page: string | string[] | undefined,
+	completed: boolean,
+) {
 	'use cache'
-	cacheTag('tasks')
-	return await prisma.task.findMany()
+	cacheTag(`tasks-${completed}-${page}`)
+	const pageSize = 10
+	const pageNumber = page
+		? Array.isArray(page)
+			? parseInt(page[0], 10)
+			: parseInt(page, 10)
+		: 1
+	const skip = (pageNumber - 1) * pageSize
+
+	const tasks = await prisma.task.findMany({
+		where: {
+			completed,
+		},
+		skip,
+		take: pageSize,
+	})
+	console.log(tasks)
+	return tasks
 }

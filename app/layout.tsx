@@ -4,6 +4,7 @@ import './globals.css'
 import AppHeader from '@/components/headers/app-header'
 import { Providers } from '@/components/providers'
 import SearchBar from '@/components/search-bar'
+import { Toaster } from 'sonner'
 
 const nunitoSans = Nunito_Sans({ variable: '--font-sans' })
 
@@ -33,9 +34,12 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
 				<div className="flex min-h-screen w-full flex-col items-center gap-8 bg-background p-4 md:p-10">
-					<AppHeader />
-					<SearchBar />
-					<Providers>{children}</Providers>
+					<Providers>
+						<AppHeader />
+						<SearchBar />
+						{children}
+						<Toaster />
+					</Providers>
 				</div>
 			</body>
 		</html>

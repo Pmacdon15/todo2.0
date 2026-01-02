@@ -1,7 +1,7 @@
 'use client'
 import { Activity, useState, ViewTransition } from 'react'
 import { toggleComplete } from '@/actions/tasks-actions'
-import type { Task } from '@/types/types'
+import type { Task } from '@/lib/generated/prisma/client'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 
@@ -22,7 +22,7 @@ export default function TaskDisplay({ task }: { task: Task }) {
 							{task.name}
 						</Button>
 						<div className="text-muted-foreground">{task.type}</div>
-						<div>{task.due_date}</div>
+						<div>{task.due_date.toDateString()}</div>
 					</div>
 
 					<div>

@@ -5,11 +5,13 @@ import { Card, CardContent, CardHeader } from '../ui/card'
 import TaskDisplay from './task-display'
 export default function TasksCard({
 	tasksPromise,
+	pagePromise,
 }: {
 	tasksPromise: Promise<Task[]>
+	pagePromise: Promise<number>
 }) {
 	const tasks = use(tasksPromise)
-
+	const page = use(pagePromise)
 	const completed = tasks.length > 0 ? tasks[0].completed : false
 
 	return (
@@ -19,7 +21,11 @@ export default function TasksCard({
 
 				<CardContent>
 					{tasks.map((task, index) => (
-						<TaskDisplay key={task.name + index} task={task} />
+						<TaskDisplay
+							key={task.name + index}
+							page={page}
+							task={task}
+						/>
 					))}
 				</CardContent>
 			</Card>

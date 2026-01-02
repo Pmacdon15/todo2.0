@@ -11,13 +11,26 @@ export default function Page(props: PageProps<'/'>) {
 		fetchTasks(params.pageCompleted, true),
 	)
 
+	const pagePromise = props.searchParams.then(
+		(params) => Number(params.page) ?? 1,
+	)
+	const pageCompletedPromise = props.searchParams.then(
+		(params) => Number(params.pageCompleted) ?? 1,
+	)
+
 	return (
 		<>
 			<Suspense fallback={<TasksCardFallback />}>
-				<TasksCard tasksPromise={tasksPromise} />
+				<TasksCard
+					pagePromise={pagePromise}
+					tasksPromise={tasksPromise}
+				/>
 			</Suspense>
 			<Suspense fallback={<TasksCardFallback />}>
-				<TasksCard tasksPromise={completedTasksPromise} />
+				<TasksCard
+					pagePromise={pageCompletedPromise}
+					tasksPromise={completedTasksPromise}
+				/>
 			</Suspense>
 		</>
 	)

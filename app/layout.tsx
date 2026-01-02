@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Nunito_Sans } from 'next/font/google'
 import './globals.css'
+import { Toaster } from 'sonner'
 import AppHeader from '@/components/headers/app-header'
 import { Providers } from '@/components/providers'
 import SearchBar from '@/components/search-bar'
-import { Toaster } from 'sonner'
 
 const nunitoSans = Nunito_Sans({ variable: '--font-sans' })
 

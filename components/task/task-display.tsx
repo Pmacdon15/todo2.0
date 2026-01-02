@@ -2,10 +2,17 @@
 import { Activity, useState, ViewTransition } from 'react'
 import { toggleComplete } from '@/actions/tasks-actions'
 import type { Task } from '@/lib/generated/prisma/client'
+import DeleteTaskButton from '../buttons/delete-task-button'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 
-export default function TaskDisplay({ task }: { task: Task }) {
+export default function TaskDisplay({
+	task,
+	page,
+}: {
+	task: Task
+	page: number
+}) {
 	const [showTask, setShowTask] = useState(false)
 	const [isCompleted, setIsCompleted] = useState(task.completed)
 
@@ -25,7 +32,7 @@ export default function TaskDisplay({ task }: { task: Task }) {
 						<div>{task.due_date.toDateString()}</div>
 					</div>
 
-					<div>
+					<div className="flex items-center gap-1">
 						<Input
 							className="h-4 w-4 cursor-pointer"
 							defaultChecked={isCompleted}
@@ -34,6 +41,11 @@ export default function TaskDisplay({ task }: { task: Task }) {
 								setIsCompleted(!task.completed)
 							}}
 							type="checkbox"
+						/>
+						<DeleteTaskButton
+							completed={isCompleted}
+							id={task.id}
+							page={page}
 						/>
 					</div>
 				</div>

@@ -1,5 +1,16 @@
 import { IconX } from '@tabler/icons-react'
 import { useDeleteTaskMutation } from '@/mutations/tasks-mutations'
+import { Button } from '../ui/button'
+import {
+	Dialog,
+	DialogClose,
+	DialogContent,
+	DialogDescription,
+	DialogFooter,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from '../ui/dialog'
 
 export default function DeleteTaskButton({
 	id,
@@ -12,12 +23,31 @@ export default function DeleteTaskButton({
 }) {
 	const { mutate } = useDeleteTaskMutation({ page, completed })
 	return (
-		<button
-			className="transition-transform duration-200 hover:scale-120"
-			onClick={() => mutate(id)}
-			type="button"
-		>
-			<IconX />
-		</button>
+		<Dialog>
+			<DialogTrigger asChild>
+				<button
+					className="transition-transform duration-200 hover:scale-120"
+					type="button"
+				>
+					<IconX />
+				</button>
+			</DialogTrigger>
+			<DialogContent className="sm:max-w-106.25">
+				<DialogHeader>
+					<DialogTitle>Edit profile</DialogTitle>
+					<DialogDescription>
+						This cannot be undone are you are you want to delete this task?
+					</DialogDescription>
+				</DialogHeader>
+				<DialogFooter>
+					<DialogClose asChild>
+						<Button variant="outline">Cancel</Button>
+					</DialogClose>
+					<Button onClick={() => mutate(id)} type="button">
+						Delete task
+					</Button>
+				</DialogFooter>
+			</DialogContent>
+		</Dialog>
 	)
 }

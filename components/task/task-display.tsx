@@ -1,10 +1,9 @@
 'use client'
 import { Activity, useState, ViewTransition } from 'react'
-import { toggleComplete } from '@/actions/tasks-actions'
 import type { Task } from '@/lib/generated/prisma/client'
 import DeleteTaskButton from '../buttons/delete-task-button'
+import ToggleCompleteInput from '../inputs/toggle-complete-input'
 import { Button } from '../ui/button'
-import { Input } from '../ui/input'
 
 export default function TaskDisplay({
 	task,
@@ -13,8 +12,7 @@ export default function TaskDisplay({
 	task: Task
 	page: number
 }) {
-	const [showTask, setShowTask] = useState(false)
-	const [isCompleted, setIsCompleted] = useState(task.completed)
+	const [showTask, setShowTask] = useState(false)	
 
 	return (
 		<ViewTransition>
@@ -33,17 +31,9 @@ export default function TaskDisplay({
 					</div>
 
 					<div className="flex items-center gap-1">
-						<Input
-							className="h-4 w-4 cursor-pointer"
-							defaultChecked={isCompleted}
-							onChange={() => {
-								toggleComplete(task.id, task.completed)
-								setIsCompleted(!task.completed)
-							}}
-							type="checkbox"
-						/>
+						<ToggleCompleteInput task={task} />
 						<DeleteTaskButton
-							completed={isCompleted}
+							completed={task.completed}
 							id={task.id}
 							page={page}
 						/>

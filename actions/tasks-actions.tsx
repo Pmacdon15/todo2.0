@@ -1,17 +1,24 @@
 'use server'
 
-import { revalidatePath } from 'next/cache'
 import type z from 'zod'
 import type { Task } from '@/lib/generated/prisma/client'
 import prisma from '@/lib/prisma'
 import type { formSchema } from '@/zod/tasks-schema'
 
-export async function toggleComplete(id: string, completed: boolean) {
-	await prisma.task.update({
-		where: { id },
-		data: { completed: !completed },
-	})
-	revalidatePath('/', 'page')
+export async function toggleTaskAction(id: string, completed: boolean) {
+	let result: Task
+	try {
+		result = await prisma.task.update({
+			where: { id },
+			data: { completed: !completed },
+		})
+		console.log('result for toggling completed: ', result)
+		if (!result) throw new Error('Error toggling task completed.')
+	} catch (e: unknown) {
+		console.error('Error toggling task completed: ', e)
+		return { error: 'Error updating DB.' }
+	}
+	return result
 }
 
 export async function deleteTaskAction(id: string) {

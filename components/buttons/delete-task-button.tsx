@@ -21,22 +21,26 @@ export default function DeleteTaskButton({
 	page: number
 	completed: boolean
 }) {
-	const { mutate } = useDeleteTaskMutation({ page, completed })
+	const { mutate, error } = useDeleteTaskMutation({ page, completed })
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<button
-					className="transition-transform duration-200 hover:scale-120"
-					type="button"
-				>
-					<IconX />
-				</button>
+				<div className='flex'>
+					<button
+						className="transition-transform duration-200 hover:scale-120"
+						type="button"
+					>
+						<IconX />
+					</button>
+					<div className="text-red-500">{error?.message}</div>
+				</div>
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-106.25">
 				<DialogHeader>
 					<DialogTitle>Edit profile</DialogTitle>
 					<DialogDescription>
-						This cannot be undone are you are you want to delete this task?
+						This cannot be undone are you are you want to delete
+						this task?
 					</DialogDescription>
 				</DialogHeader>
 				<DialogFooter>

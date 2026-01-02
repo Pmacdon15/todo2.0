@@ -1,6 +1,6 @@
 'use server'
 
-import { updateTag } from 'next/cache'
+import { revalidatePath, updateTag } from 'next/cache'
 import type z from 'zod'
 import type { Task } from '@/lib/generated/prisma/client'
 import prisma from '@/lib/prisma'
@@ -11,12 +11,26 @@ export async function toggleComplete(id: string, completed: boolean) {
 		where: { id },
 		data: { completed: !completed },
 	})
-	await updateTag('tasks')
+	revalidatePath('/', 'page')
+}
+
+export async function deleteTaskAction(
+	id: string,
+	page: number,
+	pageCompleted: number,
+) {
+	await prisma.task.delete({
+		where: { id },
+	})
+	updateTag(`tasks-${false}-${pageCompleted}`)
+	updateTag(`tasks-${true}-${pageCompleted}`)
+	updateTag(`tasks-${false}-${page}`)
+	updateTag(`tasks-${true}-${page}`)
 }
 
 export async function newTaskAction(data: z.infer<typeof formSchema>) {
 	let result: Task
-	try {		
+	try {
 		result = await prisma.task.create({
 			data: {
 				name: data.name,
@@ -26,7 +40,7 @@ export async function newTaskAction(data: z.infer<typeof formSchema>) {
 				completed: false,
 			},
 		})
-		console.log('result: ', result)
+		console.log('result for adding new task: ', result)
 		if (!result) throw new Error('Error adding task.')
 	} catch (e: unknown) {
 		console.error('Error adding task: ', e)

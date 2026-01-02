@@ -6,20 +6,22 @@ import { updateTagAction } from '@/actions/update-tag-action'
 import type { formSchema } from '@/zod/tasks-schema'
 
 export const useAddTaskMutation = ({
-	onSuccess,
+	onSuccess,	
+	page,
 }: {
-	onSuccess?: () => void
+	onSuccess?: () => void	
+	page: number
 }) => {
 	return useMutation({
 		mutationFn: async (data: z.infer<typeof formSchema>) => {
 			const result = await newTaskAction(data)
 			if ('error' in result) throw new Error('Error adding task')
-				
+
 			return result
 		},
-		onSuccess: async () => {
+		onSuccess: async () => {			
+			updateTagAction(`tasks-${false}-${page}`)
 			onSuccess?.()
-			updateTagAction('tasks')
 			toast.success('Task has been created')
 		},
 		onError: () => {

@@ -21,6 +21,9 @@ export async function fetchTasks(
 		},
 		skip,
 		take: pageSize,
+		orderBy: {
+			due_date: 'asc',
+		},
 	})
 	console.log(tasks)
 	return tasks

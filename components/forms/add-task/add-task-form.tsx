@@ -1,6 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useSearchParams } from 'next/navigation'
 import { ViewTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import type * as z from 'zod'
@@ -23,11 +24,14 @@ import { TaskDueDatePicker } from './form-fields/task-due-date-picker'
 const typesOfTasks = ['Personal', 'Work', 'Play', 'Other'] as const
 
 export default function AddTaskForm({ onCancel }: { onCancel: () => void }) {
+	const searchParams = useSearchParams()
+	const page = Number(searchParams.get('page') || 1)
 	const { mutate, error } = useAddTaskMutation({
 		onSuccess: () => {
 			form.reset()
 			onCancel()
 		},
+		page,
 	})
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),

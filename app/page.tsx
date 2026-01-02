@@ -8,7 +8,7 @@ export default function Page(props: PageProps<'/'>) {
 		fetchTasks(params.page, false),
 	)
 	const completedTasksPromise = props.searchParams.then((params) =>
-		fetchTasks(params.page, true),
+		fetchTasks(params.pageCompleted, true),
 	)
 
 	return (

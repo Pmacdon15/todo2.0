@@ -8,14 +8,17 @@ export default function TasksCard({
 	tasksPromise,
 	pagePromise,
 }: {
-	tasksPromise: Promise<Task[]>
+	tasksPromise: Promise<{
+		tasks: Task[]
+		hasMore: boolean
+	}>
 	pagePromise: Promise<number>
 }) {
 	const tasks = use(tasksPromise)
 	const page = use(pagePromise)
 
-	if (tasks.length < 1) return null
-	const completed = tasks.length > 0 ? tasks[0].completed : false
+	if (tasks.tasks.length < 1) return null
+	const completed = tasks.tasks.length > 0 ? tasks.tasks[0].completed : false
 
 	const pageNumber = page ?? 1
 
@@ -26,16 +29,16 @@ export default function TasksCard({
 				<CardHeader>{completed ? 'Completed ' : ' '} Tasks</CardHeader>
 
 				<CardContent>
-					{tasks.map((task, index) => (
+					{tasks.tasks.map((task, index) => (
 						<TaskDisplay
 							key={task.name + index}
 							page={pageNumber}
 							task={task}
 						/>
 					))}
-					<CardFooter>
-						<PaginationButton back completed={completed} />
-						<PaginationButton completed={completed} />
+					<CardFooter className="mt-4 flex justify-between p-8">
+						<PaginationButton back completed={completed} hasMore={tasks.hasMore} />
+						<PaginationButton completed={completed} hasMore={tasks.hasMore}/>
 					</CardFooter>
 				</CardContent>
 			</Card>

@@ -4,9 +4,11 @@ import { useRouter, useSearchParams } from 'next/navigation'
 export default function PaginationButton({
 	completed,
 	back = false,
+	hasMore,
 }: {
 	completed: boolean
 	back?: boolean
+	hasMore: boolean
 }) {
 	const searchParams = useSearchParams()
 	const router = useRouter()
@@ -18,7 +20,7 @@ export default function PaginationButton({
 		<div>
 			{back ? (
 				<button
-					className="transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+					className="flex items-center transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
 					disabled={!page || page === 1}
 					onClick={() =>
 						router.push(
@@ -27,18 +29,20 @@ export default function PaginationButton({
 					}
 					type="button"
 				>
-					<IconCaretLeft />
+					<IconCaretLeft /> Back
 				</button>
 			) : (
 				<button
-					className="transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
-					onClick={() =>
+					className="flex items-center transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+					disabled={!hasMore}
+                    onClick={() =>
 						router.push(
 							`/?page${completed ? 'Completed' : ''}=${page + 1}`,
 						)
 					}
 					type="button"
 				>
+					Forward
 					<IconCaretRight />
 				</button>
 			)}

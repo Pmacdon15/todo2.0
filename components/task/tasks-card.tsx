@@ -13,6 +13,8 @@ export default function TasksCard({
 }) {
 	const tasks = use(tasksPromise)
 	const page = use(pagePromise)
+
+	if (tasks.length < 1) return null
 	const completed = tasks.length > 0 ? tasks[0].completed : false
 
 	const pageNumber = page ?? 1
@@ -32,8 +34,8 @@ export default function TasksCard({
 						/>
 					))}
 					<CardFooter>
-						<PaginationButton back />
-						<PaginationButton />
+						<PaginationButton back completed={completed} />
+						<PaginationButton completed={completed} />
 					</CardFooter>
 				</CardContent>
 			</Card>

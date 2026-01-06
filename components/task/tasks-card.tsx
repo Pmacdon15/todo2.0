@@ -4,6 +4,7 @@ import type { Task } from '@/lib/generated/prisma/client'
 import PaginationButton from '../buttons/pagination-button'
 import { Card, CardContent, CardFooter, CardHeader } from '../ui/card'
 import TaskDisplay from './task-display'
+import NotTasksFallback from '../fallbacks/no-tasks-fallback'
 export default function TasksCard({
 	tasksPromise,
 	pagePromise,
@@ -17,7 +18,7 @@ export default function TasksCard({
 	const tasks = use(tasksPromise)
 	const page = use(pagePromise)
 
-	if (tasks.tasks.length < 1) return null
+	if (tasks.tasks.length < 1) return <NotTasksFallback />
 	const completed = tasks.tasks.length > 0 ? tasks.tasks[0].completed : false
 
 	const pageNumber = page ?? 1
@@ -37,8 +38,15 @@ export default function TasksCard({
 						/>
 					))}
 					<CardFooter className="mt-4 flex justify-between p-8">
-						<PaginationButton back completed={completed} hasMore={tasks.hasMore} />
-						<PaginationButton completed={completed} hasMore={tasks.hasMore}/>
+						<PaginationButton
+							back
+							completed={completed}
+							hasMore={tasks.hasMore}
+						/>
+						<PaginationButton
+							completed={completed}
+							hasMore={tasks.hasMore}
+						/>
 					</CardFooter>
 				</CardContent>
 			</Card>

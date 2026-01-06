@@ -18,34 +18,35 @@ export default function PaginationButton({
 
 	return (
 		<div>
-			{back ? (
-				<button
-					className="flex items-center transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
-					disabled={!page || page === 1}
-					onClick={() =>
-						router.push(
-							`/?page${completed ? 'Completed' : ''}=${page - 1}`,
-						)
-					}
-					type="button"
-				>
-					<IconCaretLeft /> Back
-				</button>
-			) : (
-				<button
-					className="flex items-center transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
-					disabled={!hasMore}
-                    onClick={() =>
-						router.push(
-							`/?page${completed ? 'Completed' : ''}=${page + 1}`,
-						)
-					}
-					type="button"
-				>
-					Forward
-					<IconCaretRight />
-				</button>
-			)}
+			{hasMore && page && page > 0 &&
+				(back ? (
+					<button
+						className="flex items-center transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+						disabled={!page || page === 1}
+						onClick={() =>
+							router.push(
+								`/?page${completed ? 'Completed' : ''}=${page - 1}`,
+							)
+						}
+						type="button"
+					>
+						<IconCaretLeft /> Back
+					</button>
+				) : (
+					<button
+						className="flex items-center transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+						disabled={!hasMore}
+						onClick={() =>
+							router.push(
+								`/?page${completed ? 'Completed' : ''}=${page + 1}`,
+							)
+						}
+						type="button"
+					>
+						Forward
+						<IconCaretRight />
+					</button>
+				))}
 		</div>
 	)
 }

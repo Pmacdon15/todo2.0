@@ -21,12 +21,11 @@ export default function DeleteTaskButton({
 	page: number
 	completed: boolean
 }) {
-	
 	const { mutate, error } = useDeleteTaskMutation({ page, completed })
 	return (
 		<Dialog>
 			<DialogTrigger asChild>
-				<div className='flex'>
+				<div className="flex">
 					<button
 						className="transition-transform duration-200 hover:scale-120"
 						type="button"

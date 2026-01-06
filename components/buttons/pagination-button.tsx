@@ -11,6 +11,7 @@ export default function PaginationButton({ back = false }: { back?: boolean }) {
 		<div>
 			{back ? (
 				<button
+					className="transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
 					disabled={!page || page === 1}
 					onClick={() => router.push(`/?page=${page - 1}`)}
 					type="button"
@@ -19,6 +20,7 @@ export default function PaginationButton({ back = false }: { back?: boolean }) {
 				</button>
 			) : (
 				<button
+					className="transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
 					onClick={() => router.push(`/?page=${page + 1}`)}
 					type="button"
 				>

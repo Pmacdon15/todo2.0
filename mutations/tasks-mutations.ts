@@ -81,7 +81,7 @@ export const useDeleteTaskMutation = ({
 			return result
 		},
 		onSuccess: async () => {
-			updateTagAction(`tasks-${completed}-${page}`)			
+			updateTagAction(`tasks-${completed}-${page}`)
 			onSuccess?.()
 			toast.success('Task has been deleted')
 		},

@@ -1,7 +1,8 @@
 'use client'
 import { use } from 'react'
 import type { Task } from '@/lib/generated/prisma/client'
-import { Card, CardContent, CardHeader } from '../ui/card'
+import PaginationButton from '../buttons/pagination-button'
+import { Card, CardContent, CardFooter, CardHeader } from '../ui/card'
 import TaskDisplay from './task-display'
 export default function TasksCard({
 	tasksPromise,
@@ -30,6 +31,10 @@ export default function TasksCard({
 							task={task}
 						/>
 					))}
+					<CardFooter>
+						<PaginationButton back />
+						<PaginationButton />
+					</CardFooter>
 				</CardContent>
 			</Card>
 		</div>

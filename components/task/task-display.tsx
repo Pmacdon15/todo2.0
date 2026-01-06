@@ -12,7 +12,7 @@ export default function TaskDisplay({
 	task: Task
 	page: number
 }) {
-	const [showTask, setShowTask] = useState(false)	
+	const [showTask, setShowTask] = useState(false)
 
 	return (
 		<ViewTransition>

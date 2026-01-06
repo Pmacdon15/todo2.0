@@ -6,13 +6,14 @@ export async function fetchTasks(
 	completed: boolean,
 ) {
 	'use cache'
-	cacheTag(`tasks-${completed}-${page}`)
-	const pageSize = 10
 	const pageNumber = page
 		? Array.isArray(page)
 			? parseInt(page[0], 10)
 			: parseInt(page, 10)
 		: 1
+	cacheTag(`tasks-${completed}-${pageNumber}`)
+	const pageSize = 10
+	
 	const skip = (pageNumber - 1) * pageSize
 
 	const tasks = await prisma.task.findMany({

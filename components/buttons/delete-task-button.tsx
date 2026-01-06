@@ -21,6 +21,7 @@ export default function DeleteTaskButton({
 	page: number
 	completed: boolean
 }) {
+	
 	const { mutate, error } = useDeleteTaskMutation({ page, completed })
 	return (
 		<Dialog>

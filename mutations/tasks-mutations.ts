@@ -59,7 +59,7 @@ export const useToggleTaskMutation = ({
 			toast.success('Task toggled completed')
 		},
 		onError: () => {
-			toast.error('Error creating task')
+			toast.error('Error toggling completed')
 		},
 	})
 }
@@ -81,7 +81,7 @@ export const useDeleteTaskMutation = ({
 			return result
 		},
 		onSuccess: async () => {
-			updateTagAction(`tasks-${completed}-${page}`)
+			updateTagAction(`tasks-${completed}-${page}`)			
 			onSuccess?.()
 			toast.success('Task has been deleted')
 		},

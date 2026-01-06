@@ -14,6 +14,9 @@ export default function TasksCard({
 	const page = use(pagePromise)
 	const completed = tasks.length > 0 ? tasks[0].completed : false
 
+	const pageNumber = page ?? 1
+
+	console.log(page, pageNumber)
 	return (
 		<div className="w-full rounded-xl shadow-lg md:w-4/6">
 			<Card>
@@ -23,7 +26,7 @@ export default function TasksCard({
 					{tasks.map((task, index) => (
 						<TaskDisplay
 							key={task.name + index}
-							page={page}
+							page={pageNumber}
 							task={task}
 						/>
 					))}

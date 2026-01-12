@@ -25,7 +25,7 @@ export default function TasksCard({
 
 	console.log(page, pageNumber)
 	return (
-		<div className="w-full max-w-2xl rounded-3xl p-1 overflow-hidden transition-all duration-300 hover:shadow-2xl">
+		<div className="w-full max-w-2xl overflow-hidden rounded-3xl p-1 transition-all duration-300 hover:shadow-2xl">
 			<Card className="glass glass-dark border-none shadow-none">
 				<CardHeader className="p-8 pb-4">
 					<h2 className="font-semibold text-2xl text-foreground/80">

@@ -29,9 +29,7 @@ export async function fetchTasks(
 
 	const hasMore = tasksPlusOne.length > pageSize
 
-	const tasks = hasMore
-		? tasksPlusOne.slice(0, pageSize)
-		: tasksPlusOne
+	const tasks = hasMore ? tasksPlusOne.slice(0, pageSize) : tasksPlusOne
 
 	return {
 		tasks,

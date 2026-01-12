@@ -18,7 +18,9 @@ export default function PaginationButton({
 
 	return (
 		<div>
-			{hasMore && page && page > 0 &&
+			{hasMore &&
+				page &&
+				page > 0 &&
 				(back ? (
 					<button
 						className="flex items-center transition-opacity disabled:cursor-not-allowed disabled:opacity-40"

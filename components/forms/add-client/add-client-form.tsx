@@ -101,7 +101,7 @@ export default function AddClientForm({ onCancel }: { onCancel: () => void }) {
 
 							<div className="space-y-4">
 								<div className="flex items-center justify-between">
-									<h3 className="text-lg font-medium">
+									<h3 className="font-medium text-lg">
 										Addresses
 									</h3>
 									<Button

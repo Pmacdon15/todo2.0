@@ -7,15 +7,15 @@ export default async function ClientsPage() {
 	const clients = await fetchClients()
 
 	return (
-		<div className="container mx-auto p-4 space-y-6">
+		<div className="container mx-auto space-y-6 p-4">
 			<div className="flex items-center justify-between">
-				<h1 className="text-3xl font-bold">Clients</h1>
+				<h1 className="font-bold text-3xl">Clients</h1>
 				<AddClientButton />
 			</div>
 
 			<div className="grid gap-6">
 				{clients.length === 0 ? (
-					<p className="text-center text-muted-foreground py-10">
+					<p className="py-10 text-center text-muted-foreground">
 						No clients found. Add one to get started!
 					</p>
 				) : (
@@ -26,7 +26,7 @@ export default async function ClientsPage() {
 									<IconUser className="text-primary" />
 									{client.first_name} {client.last_name}
 								</CardTitle>
-								<div className="text-sm text-muted-foreground flex gap-4">
+								<div className="flex gap-4 text-muted-foreground text-sm">
 									{client.email && (
 										<span>{client.email}</span>
 									)}
@@ -39,19 +39,19 @@ export default async function ClientsPage() {
 								<div className="divide-y">
 									{client.addresses.map((address) => (
 										<div
-											className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-4"
+											className="flex flex-col justify-between gap-4 p-4 md:flex-row md:items-center"
 											key={address.id}
 										>
 											<div className="flex items-start gap-3">
 												<IconMapPin
-													className="mt-1 text-muted-foreground flex-shrink-0"
+													className="mt-1 flex-shrink-0 text-muted-foreground"
 													size={18}
 												/>
 												<div>
 													<p className="font-medium">
 														{address.street}
 													</p>
-													<p className="text-sm text-muted-foreground">
+													<p className="text-muted-foreground text-sm">
 														{address.city},{' '}
 														{address.state}{' '}
 														{address.zip}
@@ -60,7 +60,7 @@ export default async function ClientsPage() {
 											</div>
 
 											<div className="flex flex-wrap gap-4 text-sm">
-												<div className="flex items-center gap-1.5 bg-secondary/50 px-2.5 py-1 rounded-full">
+												<div className="flex items-center gap-1.5 rounded-full bg-secondary/50 px-2.5 py-1">
 													<IconUser
 														className="text-muted-foreground"
 														size={14}
@@ -73,7 +73,7 @@ export default async function ClientsPage() {
 															'Unassigned'}
 													</span>
 												</div>
-												<div className="flex items-center gap-1.5 bg-secondary/50 px-2.5 py-1 rounded-full">
+												<div className="flex items-center gap-1.5 rounded-full bg-secondary/50 px-2.5 py-1">
 													<IconCalendar
 														className="text-muted-foreground"
 														size={14}

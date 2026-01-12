@@ -31,10 +31,10 @@ export default function RootLayout({
 	return (
 		<html className={nunitoSans.variable} lang="en">
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen relative overflow-x-hidden`}
+				className={`${geistSans.variable} ${geistMono.variable} relative min-h-screen overflow-x-hidden antialiased`}
 			>
 				<div
-					className="fixed inset-0 z-[-1] bg-cover bg-center bg-no-repeat transition-opacity duration-1000"
+					className="fixed inset-0 z-[-1] bg-center bg-cover bg-no-repeat transition-opacity duration-1000"
 					style={{ backgroundImage: 'url(/background.png)' }}
 				/>
 				<div className="fixed inset-0 z-[-1] bg-gradient-to-b from-background/40 to-background/80" />

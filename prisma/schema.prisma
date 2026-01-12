@@ -11,13 +11,14 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Task {
-  id       String   @id @default(uuid())
-  name     String
-  type     String
-  due_date DateTime
+  id          String   @id @default(uuid())
+  name        String
+  type        String
+  due_date    DateTime
   description String
-  completed Boolean
+  completed   Boolean
 }

@@ -3,7 +3,6 @@ import { Activity, useState, ViewTransition } from 'react'
 import type { Task } from '@/lib/generated/prisma/client'
 import DeleteTaskButton from '../buttons/delete-task-button'
 import ToggleCompleteInput from '../inputs/toggle-complete-input'
-import { Button } from '../ui/button'
 
 export default function TaskDisplay({
 	task,
@@ -16,21 +15,27 @@ export default function TaskDisplay({
 
 	return (
 		<ViewTransition>
-			<div className={`${showTask ? 'rounded-sm border p-4' : ''}`}>
-				<div className={`flex w-full items-center`}>
-					<div className="grid w-full grid-cols-3 gap-4">
-						<Button
-							className="mr-auto"
+			<div
+				className={`${showTask ? 'bg-accent/5' : ''} group border-b last:border-b-0 border-white/10 transition-colors duration-200 hover:bg-white/5`}
+			>
+				<div className={`flex w-full items-center p-4 px-8`}>
+					<div className="grid w-full grid-cols-3 gap-6 items-center">
+						<button
+							className={`text-left font-medium text-lg transition-colors duration-200 hover:text-primary ${task.completed ? 'line-through opacity-50' : 'text-foreground/90'}`}
 							onClick={() => setShowTask(!showTask)}
-							variant={'ghost'}
+							type="button"
 						>
 							{task.name}
-						</Button>
-						<div className="text-muted-foreground">{task.type}</div>
-						<div>{task.due_date.toDateString()}</div>
+						</button>
+						<div className="text-sm font-medium uppercase tracking-wider text-muted-foreground/70">
+							{task.type}
+						</div>
+						<div className="text-sm text-muted-foreground/60 font-mono">
+							{task.due_date.toDateString()}
+						</div>
 					</div>
 
-					<div className="flex items-center gap-1">
+					<div className="ml-auto flex items-center gap-3">
 						<ToggleCompleteInput task={task} />
 						<DeleteTaskButton
 							completed={task.completed}
@@ -40,8 +45,8 @@ export default function TaskDisplay({
 					</div>
 				</div>
 				<Activity mode={showTask ? 'visible' : 'hidden'}>
-					<div className="font-medium text-2xl">
-						{task.description}
+					<div className="px-8 pb-6 pt-2 text-foreground/70 leading-relaxed italic border-t border-white/5 mx-8">
+						{task.description || 'No description provided.'}
 					</div>
 				</Activity>
 			</div>

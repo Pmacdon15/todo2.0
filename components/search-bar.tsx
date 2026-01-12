@@ -3,9 +3,9 @@ import TaskTypeSelect from './selectors/task-type-select'
 
 export default function SearchBar() {
 	return (
-		<div className="flex w-4/6 items-center justify-center gap-4 rounded-xl border-2 p-8 font-medium text-4xl shadow-2xl">
+		<div className="flex w-full max-w-2xl items-center justify-between gap-6 rounded-3xl p-6 glass glass-dark">
 			<TaskTypeSelect />
-			<div className="mr-8 ml-auto">
+			<div className="flex items-center">
 				<AddTaskButton />
 			</div>
 		</div>
